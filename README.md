@@ -51,7 +51,7 @@ Instead of spending hours configuring:
 
 Download the binary from:
 
-https://github.com/YOUR_USERNAME/create-scala-app/releases
+https://github.com/zayd-r/create-scala-app/releases
 
 ---
 
@@ -59,13 +59,13 @@ https://github.com/YOUR_USERNAME/create-scala-app/releases
 
 ```bash
 # Download latest release
-wget https://github.com/YOUR_USERNAME/create-scala-app/releases/latest/download/create-scala-app-linux
+wget https://github.com/zayd-r/create-scala-app/releases/latest/download/create-scala-app
 
 # Make executable
-chmod +x create-scala-app-linux
+chmod +x create-scala-app
 
 # Move to PATH (optional)
-sudo mv create-scala-app-linux /usr/local/bin/create-scala-app
+sudo mv create-scala-app /usr/local/bin/create-scala-app
 ```
 
 ---
@@ -89,7 +89,7 @@ sudo mv create-scala-app /usr/local/bin/
 
 ```bash
 # List available templates
-create-scala-app --templates
+create-scala-app -templates
 
 # Create a new project
 create-scala-app <template-name>
@@ -184,7 +184,7 @@ curl http://localhost:8080/health
 ## Basic Template
 
 ```
-my-project/
+basic/
 ├── build.sbt
 ├── project/
 │   └── build.properties
@@ -200,7 +200,7 @@ my-project/
 ## Typelevel Template
 
 ```
-my-api/
+typeLevel/
 ├── build.sbt
 ├── docker-compose.yml
 ├── project/
@@ -266,7 +266,7 @@ See the generated project `README` for more configuration details.
 
 ### Planned Features
 
-- More templates (CLI, library, gRPC)
+- More templates (Zio, FS2, Akka)
 - Interactive template selection
 - Scala version selection
 - Custom template support
@@ -274,7 +274,7 @@ See the generated project `README` for more configuration details.
 
 ---
 
-# Requirements
+#  Dev Requirements
 
 ### Basic Template
 
@@ -315,7 +315,7 @@ For production deployments you will likely add:
 
 ```bash
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/create-scala-app.git
+git clone https://github.com/zayd-r/create-scala-app.git
 cd create-scala-app
 
 # Build native binary
@@ -325,13 +325,13 @@ sbt nativeLink
 Binary output:
 
 ```
-target/scala-3.3.5/create-scala-app-out
+target/scala-3.3.5/create-scala-app
 ```
 
 Test it:
 
 ```bash
-./target/scala-3.3.5/create-scala-app-out basic test-project
+./target/scala-3.3.5/create-scala-app basic test-project
 ```
 
 ---
@@ -373,7 +373,7 @@ Inspired by:
 
 ### Why not use Giter8?
 
-Giter8 is powerful but also complex.
+Giter8 is powerful but also complex (A nice way of saying I hate it becuase it did not work when i used it :) ).
 
 `create-scala-app` aims for:
 
