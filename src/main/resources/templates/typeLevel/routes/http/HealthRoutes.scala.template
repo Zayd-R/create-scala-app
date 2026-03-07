@@ -1,0 +1,20 @@
+package templates.typeLevel.routes.http
+
+import org.http4s.*
+import org.http4s.dsl.*
+import org.http4s.dsl.impl.*
+import org.http4s.server.*
+
+class HealthRoutes[F[_]: Monad] private extends Http4sDsl[F]{
+ private val healthRoutes: HttpRoutes[F] =  HttpRoutes.of[F]{
+   case GET -> Root => Ok("Welcome to Http4s!!!")
+ }
+
+ val routes = Router(
+   "/health" -> healthRoutes
+ )
+}
+
+object HealthRoutes {
+  def apply[F[_]: Monad]() = new HealthRoutes[F]
+}

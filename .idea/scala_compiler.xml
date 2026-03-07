@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <option name="separateProdTestSources" value="true" />
+    <profile name="sbt 1" modules="create-scala-app" />
+    <profile name="sbt 2" modules="create-scala-app.test">
+      <parameters>
+        <parameter value="-P:scalanative:positionRelativizationPaths:/home/zero/IdeaProjects/create-scala-app/src/main/scala;/home/zero/IdeaProjects/create-scala-app/src/main/scala-3;/home/zero/IdeaProjects/create-scala-app/src/main/java;/home/zero/IdeaProjects/create-scala-app/target/scala-3.3.5/src_managed/main" />
+        <parameter value="-P:scalanative:positionRelativizationPaths:/home/zero/IdeaProjects/create-scala-app/src/test/scala;/home/zero/IdeaProjects/create-scala-app/src/test/scala-3;/home/zero/IdeaProjects/create-scala-app/src/test/java;/home/zero/IdeaProjects/create-scala-app/target/scala-3.3.5/src_managed/test" />
+      </parameters>
+      <plugins>
+        <plugin path="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-native/nscplugin_3.3.5/0.5.7/nscplugin_3.3.5-0.5.7.jar" />
+      </plugins>
+    </profile>
+    <profile name="sbt 3" modules="create-scala-app.main">
+      <parameters>
+        <parameter value="-P:scalanative:positionRelativizationPaths:/home/zero/IdeaProjects/create-scala-app/src/main/scala;/home/zero/IdeaProjects/create-scala-app/src/main/scala-3;/home/zero/IdeaProjects/create-scala-app/src/main/java;/home/zero/IdeaProjects/create-scala-app/target/scala-3.3.5/src_managed/main" />
+      </parameters>
+      <plugins>
+        <plugin path="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-native/nscplugin_3.3.5/0.5.7/nscplugin_3.3.5-0.5.7.jar" />
+      </plugins>
+    </profile>
+  </component>
+</project>
