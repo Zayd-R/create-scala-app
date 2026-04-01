@@ -12,6 +12,11 @@ All notable changes to this project will be documented in this file.
 - Restructured project templates to match final generated output (create-react-app style)
 - Removed Scala version prompt; now defaults to an opinionated LTS version
 - Refactored project structure for better separation of concerns across libraries
+- Switched from Scala Native to GraalVM for native image builds  
+  - Improves ecosystem compatibility (better support for common JVM libraries)
+  - Reduces friction when integrating with existing tooling and dependencies
+  - Provides more stable and predictable builds compared to current Scala Native limitations
+
 
 ### Fixed
 - Template system now throws an error if any `{{}}` placeholder is not replaced
