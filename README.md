@@ -427,3 +427,7 @@ Automatic updates are planned.
 ✨ **Happy coding!**
 
 Made with ❤️ for the Scala community.
+
+## ⚠️ Project Status
+
+Development may be temporarily slower due to ongoing commitments (GSoC application period).
