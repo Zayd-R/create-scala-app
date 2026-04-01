@@ -1,0 +1,21 @@
+
+All notable changes to this project will be documented in this file.
+
+---
+
+## [Unreleased]
+
+### Added
+- `--fresh` flag to fetch latest dependency versions from external sources
+
+### Changed
+- Restructured project templates to match final generated output (create-react-app style)
+- Removed Scala version prompt; now defaults to an opinionated LTS version
+- Refactored project structure for better separation of concerns across libraries
+
+### Fixed
+- Template system now throws an error if any `{{}}` placeholder is not replaced
+
+### Known Issues
+- Dependency resolution via libraries.io is rate-limited and may return inconsistent results
+- Planned migration to Maven Central for more reliable version fetching
