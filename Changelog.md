@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 - Switched from Scala Native to GraalVM for native image builds  
   - Improves ecosystem compatibility (better support for common JVM libraries)
   - Reduces friction when integrating with existing tooling and dependencies
-  - Provides more stable and predictable builds compared to current Scala Native limitations
+  - Provides more stable and predictable builds compared to current Scala Native limitations (experimental)
 
 
 ### Fixed
