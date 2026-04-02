@@ -1,0 +1,4 @@
+README.md
+build.sbt
+manifest.txt
+src/main/scala/App.scala.template

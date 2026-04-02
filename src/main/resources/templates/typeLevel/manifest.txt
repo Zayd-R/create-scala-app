@@ -1,0 +1,12 @@
+README.md
+build.sbt
+docker-compose.yml
+manifest.txt
+src/main/resources/application.conf
+src/main/scala/App.scala.template
+src/main/scala/config/AppConfig.scala.template
+src/main/scala/config/DatabaseConfig.scala.template
+src/main/scala/config/ServerConfig.scala.template
+src/main/scala/modules/Database.scala.template
+src/main/scala/modules/HttpApi.scala.template
+src/main/scala/routes/http/HealthRoutes.scala.template
