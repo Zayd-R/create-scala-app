@@ -13,11 +13,11 @@ sealed trait Template {
   val name: String
   val description: String
   val dependencies: Map[String, (String, String, String)] // name -> (group, artifact, fallBack Version)
-  def generate(build: String, fresh: Boolean, compile: Boolean): Try[Unit] = {
+  def generate(build: BuildTool, fresh: Boolean, compile: Boolean): Try[Unit] = {
     val result = for {
       (appName, projectPath) <- settingUp()
       templateFileListPaths <- ResourceLoader
-        .genTemplateFiles(name)
+        .genTemplateFiles(name, build) //TODO: get temmplate specific build tool
         .recover { case e: Throwable =>
           throw new RuntimeException(s"Could not find template '$name', is it a valid template name?", e)
         }
@@ -27,7 +27,7 @@ sealed trait Template {
       _ <- ProjectWriter.writeFinal(projectPath,
                                     os.pwd / appName
       ) // TODO: either prompt for path or as argument during intializing
-      _ <- ProjectCompiler.compileProject(os.pwd / appName, compile)
+      _ <- ProjectCompiler.compileProject(os.pwd / appName, compile, build)
     } yield {
       printSuccess(os.pwd / appName, appName)
     }
@@ -101,7 +101,7 @@ object Template {
   }
 
   case object Unknown extends Template {
-    override def generate(build: String, fresh: Boolean, compile: Boolean): Try[Unit] = {
+    override def generate(build: BuildTool, fresh: Boolean, compile: Boolean): Try[Unit] = {
       println(s"✗ Failed to create project: {Unkown template}")
       Failure(new IllegalArgumentException("Unkown template"))
     }

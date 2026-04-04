@@ -20,7 +20,6 @@ object VersionResolver {
 
   def resolveVersions(dependencies: Map[String, (String, String, String)], fresh: Boolean): Try[Map[String, String]] =
     Try {
-
       if (!fresh) {
         dependencies.map { case (library, (group, artifact, fallBackV)) =>
           library -> fallBackV
@@ -50,5 +49,4 @@ object VersionResolver {
           library -> fallBackV
         }
       }
-
 }

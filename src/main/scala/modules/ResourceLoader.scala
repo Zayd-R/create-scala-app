@@ -1,6 +1,8 @@
 package modules
 
+import Data.BuildTool
 import os.Path
+
 import scala.util.Using
 import scala.util.{Failure, Try}
 
@@ -19,7 +21,7 @@ object ResourceLoader {
       }
   }
 
-  def genTemplateFiles(templateName: String): Try[List[String]] = Try {
+  def genTemplateFiles(templateName: String, buildTool: BuildTool): Try[List[String]] = Try {
     val manifestStream = getClass.getResourceAsStream(s"/templates/$templateName/manifest.txt")
     scala.io.Source
       .fromInputStream(manifestStream)

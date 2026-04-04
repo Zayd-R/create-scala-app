@@ -44,7 +44,9 @@ build/
 .DS_Store
 
 ### Scala ###
+.idea
 .bsp/
 temp/
 build_log.txt
 create-scala-app
+

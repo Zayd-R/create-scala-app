@@ -1,4 +1,4 @@
-
+ThisBuild / name := "create-scala-app"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / scalaVersion := "3.3.5"
 
@@ -53,6 +53,7 @@ generateTemplateManifests := {
 }
 
 Compile / resourceGenerators += generateTemplateManifests.taskValue
+
 nativeImageOptions ++= Seq(
   "--no-fallback",                    // fail if it cant fully compile, dont fall back to JVM
   "--initialize-at-build-time",       // analyze everything at compile time

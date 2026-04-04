@@ -1,3 +1,0 @@
-package templates.typeLevel.config
-
-final case class DatabaseConfig(nThreads: Int, url: String, user: String, pass: String) derives ConfigReader
