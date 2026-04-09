@@ -50,3 +50,4 @@ temp/
 build_log.txt
 create-scala-app
 
+/src/test/

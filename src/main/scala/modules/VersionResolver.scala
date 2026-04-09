@@ -14,8 +14,12 @@ object VersionResolver {
   def getLatestStableVersions(group: String, artifact: String): Try[String] = {
     val url = uri"https://libraries.io/api/maven/${group}:${artifact}"
     Try(quickRequest.get(url).send())
-      .filter(response => response.code.code == 200)
-      .map(response => ujson.read(response.body).str)
+      .filter(response =>
+        println(s"response returning from $artifact is ${response.code}")
+        response.code.code == 200)
+      .map(response =>
+        println(s"Map is faliling? $artifact is ${response.code} $response")
+        ujson.read(response.body).str)
   }
 
   def resolveVersions(dependencies: Map[String, (String, String, String)], fresh: Boolean): Try[Map[String, String]] =
@@ -28,7 +32,7 @@ object VersionResolver {
         val allRequest = Future
           .traverse(dependencies.toSeq) { case (library, (group, artifact, fallBackV)) =>
             println(s"Fetching latest $library ...")
-            Thread.sleep(1000)
+            Thread.sleep(2000)
             Future {
               val version = getLatestStableVersions(group, artifact).getOrElse {
                 println(s"Failed to fetch new version for $library, falling back to defautl $fallBackV")

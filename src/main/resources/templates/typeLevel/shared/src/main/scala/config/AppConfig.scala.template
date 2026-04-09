@@ -1,6 +1,10 @@
-package templates.typeLevel.config
+package config
 
+import pureconfig.ConfigSource
 import com.comcast.ip4s.{Host, Port}
+import pureconfig.ConfigReader
+import pureconfig.generic.derivation.default.*
+import cats.effect.Sync
 
 case class AppConfig(serverConfig: ServerConfig, databaseConfig: DatabaseConfig) derives ConfigReader
 

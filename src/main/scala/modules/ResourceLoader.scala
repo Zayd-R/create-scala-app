@@ -16,7 +16,7 @@ object ResourceLoader {
       scala.io.Source.fromInputStream(stream).mkString
     }
       .recoverWith { case e: Throwable =>
-        println(s"✗ ERROR loading $pathName: ${e.getMessage}")
+        println(s"✗ ERROR loading $templateName $pathName: ${e.getMessage}")
         Failure(new RuntimeException(s"Failed to load template $pathName", e))
       }
   }
@@ -27,7 +27,7 @@ object ResourceLoader {
       .fromInputStream(manifestStream)
       .getLines()
       .map(_.trim)
-      .filter(line => line.nonEmpty && !line.contains("manifest.txt"))
+      .filter(line => line.nonEmpty &&  ( line.startsWith(buildTool.toString.toLowerCase) || line.startsWith("shared")))
       .toList
   }.recoverWith { case e: Throwable =>
     println(s"✗ ERROR loading-------------${e.getMessage} ---------- templte $templateName")

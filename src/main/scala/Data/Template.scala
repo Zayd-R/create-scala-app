@@ -17,7 +17,7 @@ sealed trait Template {
     val result = for {
       (appName, projectPath) <- settingUp()
       templateFileListPaths <- ResourceLoader
-        .genTemplateFiles(name, build) //TODO: get temmplate specific build tool
+        .genTemplateFiles(name, build) // TODO: get temmplate specific build tool
         .recover { case e: Throwable =>
           throw new RuntimeException(s"Could not find template '$name', is it a valid template name?", e)
         }
@@ -52,6 +52,7 @@ sealed trait Template {
     templateContext: TemplateContext
   ): Try[Unit] = {
 
+    println(s"the manifest tlist is --------- $templateFileListPaths")
     templateFileListPaths.foldLeft(Try(())) { case (acc, pathString) =>
       acc.flatMap(_ => processFile(pathString, templateContext))
     }
@@ -81,14 +82,17 @@ object Template {
 
   case object BasicT extends Template {
     override val name: String = "basic"
-    override val description: String = "basic sbt project with main file"
+    override val description: String = "A minimal Scala project to get started quickly"
     override val dependencies: Map[String, (String, String, String)] = Map.empty
 
   }
 
   case object TypeLevel extends Template {
     override val name: String = "typeLevel"
-    override val description: String = "Typelevel stack with http4s, cats, doobie"
+    override val description: String = "web server with Typelevel stack: Cats Effect + http4s + Doobie + PureConfig"
+    /*
+    TODO: ability of the tool to update the default versions on its own each time a compile flag is used
+     */
     override val dependencies: Map[String, (String, String, String)] = Map(
       "http4s" -> ("org.http4s", "http4s-core_3", "0.23.33"),
       "catsEffect" -> ("org.typelevel", "cats-effect_3", "3.6.3"),

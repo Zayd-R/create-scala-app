@@ -1,5 +1,8 @@
-package templates.typeLevel.modules
+package modules
 
+import cats.Monad
+import cats.effect.Resource
+import routes.http.HealthRoutes
 import org.http4s.HttpRoutes
 import org.http4s.server.Router
 import org.http4s.server.middleware.{AutoSlash, CORS}

@@ -1,3 +1,5 @@
-package templates.typeLevel.config
+package config
+import pureconfig.ConfigReader
+import pureconfig.generic.derivation.default.*
 
 final case class DatabaseConfig(nThreads: Int, url: String, user: String, pass: String) derives ConfigReader

@@ -1,4 +1,9 @@
-package templates.typeLevel.modules
+package modules
+
+import cats.effect.{Async, Resource}
+import doobie.hikari.HikariTransactor
+import doobie.util.ExecutionContexts
+import config.DatabaseConfig
 
 object Database {
   def makePostgres[F[_]: Async](databaseConfig: DatabaseConfig): Resource[F, HikariTransactor[F]] =  for {

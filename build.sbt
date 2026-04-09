@@ -10,8 +10,9 @@ lazy val root = (project in file("."))
         "com.lihaoyi" %% "os-lib" % "0.11.8",
         "com.softwaremill.sttp.client4" %% "core" % "4.0.19",
         "com.lihaoyi" %% "ujson" % "4.4.3",
-        "com.monovore" %% "decline" % "2.6.1"
-    ),
+        "com.monovore" %% "decline" % "2.6.1",
+        "org.scalameta" %% "munit" % "0.7.29" % Test
+      ),
   )
   .enablePlugins(NativeImagePlugin)
 

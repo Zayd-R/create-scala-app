@@ -6,7 +6,7 @@ object ProjectWriter {
 
   def writeFile(filePathString: String, projectPath: Path, fileContent: String): Try[Unit] = Try {
     print(s"✓ Generated ${filePathString}   ---")
-    os.write.over(projectPath / os.RelPath(filePathString.replace(".template", "")), fileContent, createFolders = true)
+    os.write.over(projectPath / os.RelPath(filePathString.replaceFirst("^[^/]+/", "").replace(".template", "")), fileContent, createFolders = true)
     println(" ✓ --- ")
   }
 

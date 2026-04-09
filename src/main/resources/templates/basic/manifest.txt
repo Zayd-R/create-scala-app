@@ -1,4 +1,7 @@
-README.md
-build.sbt
 manifest.txt
-src/main/scala/App.scala.template
+mill/README.md
+mill/build.mill.template
+sbt/README.md
+sbt/build.sbt.template
+sbt/project/plugins.sbt.template
+shared/src/main/scala/App.scala.template

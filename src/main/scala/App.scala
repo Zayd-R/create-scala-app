@@ -7,7 +7,10 @@ object App {
   def main(args: Array[String]): Unit = {
 
 //   The set of all available templates
-    val validTemplates: Set[String] = Template.all.map(_.name.toLowerCase).toSet
+    val validTemplates = Template.all.map(tempalte =>
+      (tempalte.name.toLowerCase -> tempalte.description) ).toMap
+
+    val listTemplates = Opts.flag("list", help = "List available templates")
     val stacks = Opts
       .argument[String]("template")
       .validate(s"unknown template name. Valid templates are: ${validTemplates.mkString(", ")}") { s =>
@@ -30,7 +33,7 @@ object App {
       name = "create-scala-app",
       header = "Happy coding!!!"
     ) {
-      (stacks, buildOption, fresh, compile).tupled
+      (stacks, buildOption, fresh, compile).tupled orElse listTemplates
     }
 
     val customUsage = "Usage: create-scala-app <template> [--sbt | --mill | --cli] [--fresh] [--compile]"
@@ -38,16 +41,37 @@ object App {
     tailCommand.parse(args.toSeq) match {
       case Left(help) if help.errors.isEmpty =>
         // help was requested by the user, i.e.: `--help`
-
         println(help.toString.replaceFirst("(?m)^Usage:.*$", customUsage))
+
       case Left(help) =>
         // user needs help due to bad/missing arguments
         println(s"PARSING ERROR ${args.mkString("Array(", ", ", ")")}")
         System.err.println(help.toString.replaceFirst("(?m)^Usage:.*$", customUsage))
 
       case Right((template, build, freshDep, compileOp)) =>
-        println("wtf ---------------")
         Template(template).generate(build, freshDep, compileOp)
+
+      case Right(()) =>
+        // user used --list command
+
+        // ANSI codes
+        val bold    = "\u001b[1m"
+        val cyan    = "\u001b[36m"
+        val dim     = "\u001b[2m"
+        val reset   = "\u001b[0m"
+
+        println()
+        println(s"${bold}Available templates:${reset}")
+        println()
+
+        validTemplates.foreach { case (name, desc) =>
+          val paddedName = name.padTo(14, ' ')  // aligns descriptions
+          println(s"  ${cyan}${bold}${paddedName}${reset}  ${dim}${desc}${reset}")
+        }
+
+        println()
+        println(s"  ${dim}Usage: create-scala-app <template> [--sbt | --mill | --cli] [--fresh] [--compile]${reset}")
+        println()
     }
 
   }

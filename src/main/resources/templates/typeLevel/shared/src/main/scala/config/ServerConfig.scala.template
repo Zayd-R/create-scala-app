@@ -1,5 +1,8 @@
-package templates.typeLevel.config
+package config
 
+import pureconfig.error.CannotConvert
+import pureconfig.ConfigReader
+import pureconfig.generic.derivation.default.*
 import com.comcast.ip4s.{Host, Port}
 
 final case class ServerConfig(host: Host, port: Port) derives ConfigReader

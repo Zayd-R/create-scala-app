@@ -12,7 +12,7 @@ lazy val circeVersion               = "{{CIRCE_VERSION}}"
 
 lazy val root = (project in file("."))
   .settings(
-    name := name,
+    name := "{{PROJECT_NAME}}",
     libraryDependencies ++= Seq(
       "org.typelevel"         %% "cats-effect"         % catsEffectVersion,
       "org.http4s"            %% "http4s-dsl"          % http4sVersion,
