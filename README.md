@@ -1,433 +1,109 @@
 # create-scala-app
 
-🚀 **Get started with Scala projects quickly.**
-
-A scaffolding CLI tool for creating Scala projects with common templates — inspired by `create-react-app`.
+> **Dev Journal** — Until a proper release happens, this file will serve as a running development journal, tracking the journey and the latest updates.
 
 ---
 
-## 📚 Table of Contents
+## Table of Contents
 
-- [Why This Exists](#why-this-exists)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Available Templates](#available-templates)
-    - [basic – Simple Scala Project](#basic--simple-scala-project)
-    - [typelevel – HTTP Server with Database](#typelevel--http-server-with-database)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Development Status](#development-status)
-- [Requirements](#requirements)
-- [Philosophy](#philosophy)
-- [Building from Source](#building-from-source)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-- [FAQ](#faq)
-- [Support](#support)
-- [Roadmap](#roadmap)
+- [The Vision](#the-vision)
+- [Development Philosophy & Challenges](#development-philosophy--challenges)
+- [Why the Silence?](#why-the-silence)
+- [Dev Log](#dev-log)
+- [What Building This Is Teaching Me](#what-building-this-is-teaching-me)
 
 ---
 
-# Why This Exists
+## The Vision
 
-Scala has a reputation for being **difficult to set up**, especially for beginners.
+The tool is taking much more time than anticipated — with each new addition, new ideas and new ambitions emerge.
 
-This tool provides **working project templates** so you can focus on:
-
-- Learning Scala
-- Building applications
-- Understanding project structure
-
-Instead of spending hours configuring:
-
-- `sbt`
-- dependencies
-- project structure
-
----
-
-# Installation
-
-Download the binary from:
-
-https://github.com/zayd-r/create-scala-app/releases
-
----
-
-## Linux
+The end goal is to have the tool work like this:
 
 ```bash
-# Download latest release
-wget https://github.com/zayd-r/create-scala-app/releases/latest/download/create-scala-app
+$ create-scala-app my-service
 
-# Make executable
-chmod +x create-scala-app
+? HTTP layer       › http4s | smithy4s | tapir
+? Database         › skunk (postgres) | doobie (postgres) | none
+? Auth             › JWT | session | none
+? Migrations       › Flyway | none
+? Observability    › otel4s + Prometheus | none
+? Test framework   › munit-cats-effect | weaver
 
-# Move to PATH (optional)
-sudo mv create-scala-app /usr/local/bin/create-scala-app
+✔ Generated my-service/
+✔ Dependencies resolved (Scala 3.4, CE 3.5)
+✔ App boots — run: cd my-service && sbt run
 ```
 
----
-
-## macOS
+However, this requires much more work than initially anticipated. So the **first version** will be a trimmed, complete template of the (almost) standard-practice stack for each ecosystem in Scala:
 
 ```bash
-# Download
-curl -L -o create-scala-app https://github.com/YOUR_USERNAME/create-scala-app/releases/latest/download/create-scala-app-macos
+$ create-scala-app my-service
 
-# Make executable
-chmod +x create-scala-app
+template    › typelevel | zio | akka | ...other
 
-# Move to PATH (optional)
-sudo mv create-scala-app /usr/local/bin/
+orgname     ...
+
+FLAGS: compile, run ... ??
 ```
 
----
+This first version will essentially be a complete, working, batteries-included template that is tested, compiled, and ships with many ready-to-use features:
 
-# Usage
-
-```bash
-# List available templates
-create-scala-app -templates
-
-# Create a new project
-create-scala-app <template-name>
-
-# Examples
-create-scala-app basic
-create-scala-app typelevel
-```
+- Auth token implementation
+- Running server
+- Proper middlewares
+- CORS policy
+- API docs
+- Email verification *(maybe — more thinking needed on what to include and what to exclude)*
 
 ---
 
-# Available Templates
+## Development Philosophy & Challenges
+
+Many challenges arise during the development of this tool, one of which is rooted in the philosophy of Scala itself.
+
+Scala is amazing at being modularized and offering many options to choose and compose from. Trying to replicate other tools or frameworks — like Django — necessarily means imposing rules and restrictions on what you can and cannot edit. In Scala, we simply don't have things like that. I can't force you to use an ORM instead of direct SQL (notably, doobie — one of the options in this very tool — is explicitly not an ORM; it's a functional layer over raw SQL), or impose some new paradigm.
+
+So the tool will be a **scaffolding** of already widely used and battle-tested patterns in Scala. The end goal is to give developers a scaffold of a ready-to-run template with many batteries-included modules — the kind they'd otherwise have to build from scratch every single time — while also giving them the freedom to switch, edit, or even delete all of those hard-coded modules (yes, it hurts a little).
+
+Most notably, the generated app must:
+
+- Be ready to launch out of the box
+- Have proper documentation for the already-written modules
+- Include configuration modules for handling configuration, auth, logging, and databases
+
+I also intend to add features such as making it easy to run cron jobs or compose and run streams out of the box.
+
+Each template must have a proper README and docs to introduce the already-written code, along with instructions on what can be safely edited and what might break if changed. The goal is to make each template as **modular as possible** — where if an implementation is not desired, a simple swap of that implementation (as long as it complies with the existing API) requires no other changes.
 
 ---
 
-## basic – Simple Scala Project
+## Why the Silence?
 
-A **minimal Scala 3 project** for learning or quick experiments.
-
-### Includes
-
-- Basic sbt configuration
-- Simple `Main.scala`
-- `.gitignore`
-- `README`
-
-### Use When
-
-- Learning Scala
-- Quick prototypes
-- Command-line tools
-
-### Example
-
-```bash
-create-scala-app basic my-first-project
-cd my-first-project
-sbt run
-```
+Why all that delay without any update to the repo, you ask? Well, a lot happened over these past few months — most notably medical school graduation and some health-related issues that required surgery. But the real reason there have been no commits while I'm still actively coding is... I'm just lazy about pushing. 🙂
 
 ---
 
-## typelevel – HTTP Server with Database
+## Dev Log
 
-A **full-featured web service** using the Typelevel ecosystem.
-
-### Includes
-
-- HTTP Server — `http4s` with Ember
-- Database — PostgreSQL with Doobie
-- Configuration — PureConfig with env support
-- Docker — `docker-compose.yml`
-- Structured packages
-
-### Tech Stack
-
-- Cats Effect 3
-- http4s
-- Doobie
-- Circe (JSON)
-- PureConfig
-
-### Use When
-
-- Building REST APIs
-- Microservices
-- Web backends
-- Learning functional programming
-
-### Example
-
-```bash
-create-scala-app typelevel my-api
-cd my-api
-
-# Start database
-docker-compose up -d
-
-# Run server
-sbt run
-
-# Test endpoint
-curl http://localhost:8080/health
-```
+I'll be sharing what updates are being made and why I chose one thing over another in an organized folder at `devLog/`. You'll just have to wait for my lazy self to push the updates.
 
 ---
 
-# Project Structure
+## What Building This Is Teaching Me
+
+Developing this tool is genuinely harder than expected, and it demands a deeper level of skill than I initially gave it credit for.
+
+For example, while developing the template for the Typelevel stack, I kept discovering new ways to solve problems and uncovering new information about libraries I thought I already knew. My prior experience with that stack turned out to be quite surface-level. "I want middleware? Sure, let me copy this from the docs, tweak a few things, and hope it works." Meanwhile, I had no real idea what a `Kleisli` was — but I kept seeing the word pop up in red.
+
+When you see `Kleisli` for the thousandth time in the error logs, you stop and ask yourself one honest question: **WTF is Kleisli?!**
+
+So you go investigate what kind of black magic this thing is — and this happened with many libraries along the way, each requiring a deep dive to find real answers — and then... *drum roll*...
+
+**It's just a case class.**(of course wrapping a function to allow monadic composition)
+
+All that suffering caused by a case class and type abstraction. Developing this project forces you to genuinely understand what you're working with and *why*. It teaches you how to compose types efficiently — how to take `Either`, `Option`, and other types and combine them into a single type that short-circuits on failure and produces a meaningful error message.
 
 ---
 
-## Basic Template
-
-```
-basic/
-├── build.sbt
-├── project/
-│   └── build.properties
-├── src/
-│   └── main/
-│       └── scala/
-│           └── Main.scala
-└── README.md
-```
-
----
-
-## Typelevel Template
-
-```
-typeLevel/
-├── build.sbt
-├── docker-compose.yml
-├── project/
-│   └── build.properties
-└── src/
-    └── main/
-        ├── resources/
-        │   └── application.conf
-        └── scala/
-            ├── Main.scala
-            ├── config/
-            │   ├── AppConfig.scala
-            │   ├── DatabaseConfig.scala
-            │   └── ServerConfig.scala
-            ├── modules/
-            │   ├── Database.scala
-            │   └── HttpApi.scala
-            └── routes/
-                └── http/
-                    └── HealthRoutes.scala
-```
-
----
-
-# Configuration
-
-The **typelevel template** supports configuration through:
-
-1. `application.conf`
-2. Environment variables
-
----
-
-## Environment Variables
-
-```bash
-# Server
-export SERVER_HOST="0.0.0.0"
-export SERVER_PORT="8080"
-
-# Database
-export DATABASE_URL="jdbc:postgresql://localhost:5432/myapp"
-export DATABASE_USER="postgres"
-export DATABASE_PASSWORD="postgres"
-
-sbt run
-```
-
-See the generated project `README` for more configuration details.
-
----
-
-# Development Status
-
-⚠️ **Early development (v0.1.0)**
-
-### Current Limitations
-
-- Only **2 templates** (`basic`, `typelevel`)
-- Some versions are **hardcoded**
-- Limited customization
-- **Linux/macOS only**
-
-### Planned Features
-
-- More templates (Zio, FS2, Akka)
-- Interactive template selection
-- Scala version selection
-- Custom template support
-- Windows support
-
----
-
-#  Dev Requirements
-
-### Basic Template
-
-- `sbt` **1.9+**
-- `Java` **11+**
-
-### Typelevel Template
-
-- `sbt` **1.9+**
-- `Java` **11+**
-- `Docker` (for PostgreSQL)
-
----
-
-# Philosophy
-
-These templates prioritize:
-
-> **"Working out of the box" over perfect production setups**
-
-They are designed for:
-
-✅ Learning  
-✅ Prototyping  
-✅ Understanding project structure
-
-For production deployments you will likely add:
-
-- Secret management
-- Monitoring
-- Logging
-- Performance tuning
-- Deployment configuration
-
----
-
-# Building from Source
-
-```bash
-# Clone repository
-git clone https://github.com/zayd-r/create-scala-app.git
-cd create-scala-app
-
-# Build native binary
-sbt nativeLink
-```
-
-Binary output:
-
-```
-target/scala-3.3.5/create-scala-app
-```
-
-Test it:
-
-```bash
-./target/scala-3.3.5/create-scala-app basic test-project
-```
-
----
-
-# Contributing
-
-Contributions are welcome!
-
-Areas where help is needed:
-
-- New templates (ZIO, Akka, fs2)
-- Documentation improvements
-- Bug reports
-- Feature requests
-
-See **CONTRIBUTING.md** for contribution guidelines.
-
----
-
-# License
-
-MIT License
-
-See **LICENSE** for details.
-
----
-
-# Acknowledgments
-
-Inspired by:
-
-- `create-react-app`
-- `Giter8`
-- The **Typelevel** and **Scala** communities
-
----
-
-# FAQ
-
-### Why not use Giter8?
-
-Giter8 is powerful but also complex (A nice way of saying I hate it becuase it did not work when i used it :) ).
-
-`create-scala-app` aims for:
-
-- Simplicity
-- Fast setup
-- Minimal configuration
-
----
-
-### Can I add custom templates?
-
-Not yet.
-
-Custom template support is planned.
-
----
-
-### Why Scala Native?
-
-To distribute a **single binary CLI** with no JVM required.
-
-Generated projects still run on the JVM.
-
----
-
-### Does this work on Windows?
-
-Not yet — Windows support is planned.
-
----
-
-### How do I update library versions?
-
-Currently you must update `build.sbt` manually.
-
-Automatic updates are planned.
-
----
-
-# Support
-
-- 🐛 Report bugs – https://github.com/YOUR_USERNAME/create-scala-app/issues
-- 💡 Request features – https://github.com/YOUR_USERNAME/create-scala-app/issues
-- 💬 Discussions – https://github.com/YOUR_USERNAME/create-scala-app/discussions
-
----
-
-# Roadmap
-```TODO ...```
-
-✨ **Happy coding!**
-
-Made with ❤️ for the Scala community.
-
-## ⚠️ Project Status
-
-Development may be temporarily slower due to ongoing commitments (GSoC application period).
+*More updates coming — once I push them.*
